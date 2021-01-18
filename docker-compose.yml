@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  # load_balancer:
+    # image: haproxy
+    # ports:
+      # - '8080:8080'
+    # volumes:
+      # - ./haproxy:/usr/local/etc/haproxy
+  user:
+    image: node:lts
+    container_name: user-service
+    user: node
+    volumes:
+      - ./packages/user:/home/node/app
+    working_dir: /home/node/app 
+    command: npm start
+    ports:
+      - '3001:3000'
+
+  project:
+    image: node:lts
+    container_name: project-service
+    user: node
+    volumes:
+      - ./packages/project:/home/node/app
+    working_dir: /home/node/app 
+    command: npm start
+    ports:
+      - '3002:3000'
+
